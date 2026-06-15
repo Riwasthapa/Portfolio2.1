@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Riwas Thapa — AI Developer</title>
+  <meta name="description" content="AI Developer building LLM-powered applications, RAG pipelines, and ML systems. Based in Bangalore." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #FAFAFA;
+      --bg-card: #FFFFFF;
+      --bg-subtle: #F4F4F5;
+      --border: #E4E4E7;
+      --border-hover: #A1A1AA;
+      --text: #111111;
+      --text-secondary: #666666;
+      --text-tertiary: #999999;
+      --accent: #2563EB;
+      --accent-light: #EFF6FF;
+      --accent-border: #BFDBFE;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --radius: 10px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.1), 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    ::selection { background: #DBEAFE; color: var(--accent); }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(250,250,250,0.9);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 60px;
+    }
+    .nav-logo {
+      font-size: 0.9rem; font-weight: 600; color: var(--text);
+      text-decoration: none; letter-spacing: -0.01em;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 0.25rem; list-style: none; }
+    .nav-links a {
+      color: var(--text-secondary); text-decoration: none;
+      font-size: 0.83rem; font-weight: 500;
+      padding: 0.4rem 0.75rem; border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-links a:hover { background: var(--bg-subtle); color: var(--text); }
+    .nav-cta {
+      background: var(--text); color: var(--bg);
+      padding: 0.45rem 1rem; border-radius: 7px;
+      font-size: 0.83rem; font-weight: 600; text-decoration: none;
+      transition: opacity 0.15s, transform 0.15s;
+    }
+    .nav-cta:hover { opacity: 0.85; transform: scale(1.02); }
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 4px;
+      cursor: pointer; background: none; border: none; padding: 4px;
+    }
+    .nav-hamburger span { display: block; width: 20px; height: 1.5px; background: var(--text); border-radius: 2px; }
+
+    /* ── MOBILE MENU ── */
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: var(--bg); flex-direction: column;
+      padding: 4.5rem 1.5rem 2rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 1.1rem; font-weight: 500; color: var(--text);
+      text-decoration: none; padding: 0.9rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-close {
+      position: absolute; top: 1.2rem; right: 1.5rem;
+      background: none; border: none; font-size: 1.2rem;
+      color: var(--text-secondary); cursor: pointer;
+    }
+
+    /* ── LAYOUT ── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+    section { padding: 7rem 0; }
+    section:first-of-type { padding-top: 0; }
+
+    /* ── SECTION LABELS ── */
+    .label {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .label-line { width: 18px; height: 1px; background: var(--accent); }
+    h2.section-heading {
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      font-weight: 700; letter-spacing: -0.03em; line-height: 1.15;
+      margin-bottom: 1rem; color: var(--text);
+    }
+    .section-sub { color: var(--text-secondary); max-width: 480px; line-height: 1.7; margin-bottom: 3.5rem; font-size: 0.95rem; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh; display: flex; align-items: center;
+      padding-top: 60px; border-bottom: 1px solid var(--border);
+    }
+    .hero-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 2rem;
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 4rem; align-items: center; width: 100%;
+    }
+    .hero-available {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--accent-light); border: 1px solid var(--accent-border);
+      color: var(--accent); padding: 0.3rem 0.8rem;
+      border-radius: 100px; font-size: 0.75rem; font-weight: 500;
+      margin-bottom: 1.6rem;
+    }
+    .hero-available .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #22C55E;
+      animation: blink 2.5s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    h1.hero-title {
+      font-size: clamp(2.6rem, 6vw, 4.2rem);
+      font-weight: 700; letter-spacing: -0.035em; line-height: 1.08;
+      margin-bottom: 1.3rem; color: var(--text);
+    }
+    .hero-title .muted { color: var(--text-secondary); font-weight: 400; }
+    .hero-desc {
+      font-size: 1.05rem; color: var(--text-secondary);
+      max-width: 520px; line-height: 1.75; margin-bottom: 2rem;
+    }
+    .hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 3rem; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.65rem 1.4rem; border-radius: 8px;
+      font-size: 0.88rem; font-weight: 600; text-decoration: none;
+      transition: all 0.18s; letter-spacing: -0.01em;
+    }
+    .btn-dark { background: var(--text); color: var(--bg); }
+    .btn-dark:hover { opacity: 0.85; transform: scale(1.025); }
+    .btn-outline {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--border-hover); transform: scale(1.025); }
+    .hero-stats { display: flex; gap: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+    .hero-stat-val {
+      font-size: 1.6rem; font-weight: 700;
+      letter-spacing: -0.03em; color: var(--text); line-height: 1;
+      margin-bottom: 0.2rem;
+    }
+    .hero-stat-val em { color: var(--accent); font-style: normal; }
+    .hero-stat-desc { font-size: 0.75rem; color: var(--text-secondary); font-weight: 500; }
+    .hero-avatar {
+      width: 180px; height: 180px; border-radius: 50%;
+      background: var(--bg-subtle); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4rem; flex-shrink: 0; overflow: hidden;
+      box-shadow: var(--shadow-md);
+      position: relative;
+    }
+    .hero-avatar::after {
+      content: 'RT'; position: absolute;
+      font-size: 2.2rem; font-weight: 700; letter-spacing: -0.04em;
+      color: var(--text-secondary);
+    }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--bg); }
+    .projects-grid { display: flex; flex-direction: column; gap: 1.5rem; }
+    .project-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 2rem 2.2rem;
+      display: grid; gap: 0;
+      transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+    }
+    .project-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-3px);
+      border-color: var(--border-hover);
+    }
+    .project-card-inner {
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 2.5rem; align-items: start;
+    }
+    .project-index {
+      font-size: 0.72rem; font-weight: 600; color: var(--text-tertiary);
+      letter-spacing: 0.06em; margin-bottom: 0.7rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .project-badge {
+      background: var(--accent-light); color: var(--accent);
+      border: 1px solid var(--accent-border);
+      padding: 0.15rem 0.5rem; border-radius: 4px;
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.04em;
+    }
+    .project-title {
+      font-size: 1.25rem; font-weight: 700;
+      letter-spacing: -0.02em; margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    .project-desc {
+      font-size: 0.88rem; color: var(--text-secondary);
+      line-height: 1.75; margin-bottom: 1.2rem; max-width: 600px;
+    }
+    .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.3rem; }
+    .stack-tag {
+      background: var(--bg-subtle); border: 1px solid var(--border);
+      color: var(--text-secondary); padding: 0.2rem 0.55rem;
+      border-radius: 5px; font-size: 0.72rem; font-weight: 500;
+    }
+    .project-links { display: flex; gap: 0.6rem; }
+    .project-link {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      font-size: 0.78rem; font-weight: 600; text-decoration: none;
+      color: var(--text-secondary); padding: 0.35rem 0.75rem;
+      border: 1px solid var(--border); border-radius: 6px;
+      transition: all 0.15s;
+    }
+    .project-link:hover { color: var(--accent); border-color: var(--accent-border); background: var(--accent-light); }
+    .project-metrics {
+      display: flex; flex-direction: column; gap: 0.8rem;
+      background: var(--bg-subtle); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1.3rem 1.4rem;
+      min-width: 160px; flex-shrink: 0;
+    }
+    .metric-val {
+      font-size: 1.4rem; font-weight: 700;
+      letter-spacing: -0.03em; color: var(--text); line-height: 1;
+    }
+    .metric-val span { color: var(--accent); }
+    .metric-label { font-size: 0.7rem; color: var(--text-secondary); font-weight: 500; margin-top: 0.1rem; }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--bg-subtle); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .skill-group { background: var(--bg-card); padding: 1.6rem 1.8rem; }
+    .skill-group-title { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 1rem; }
+    .skill-items { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .skill-item {
+      background: var(--bg-subtle); border: 1px solid var(--border);
+      color: var(--text); padding: 0.3rem 0.65rem;
+      border-radius: 5px; font-size: 0.78rem; font-weight: 500;
+      transition: border-color 0.15s, color 0.15s;
+      cursor: default;
+    }
+    .skill-item:hover { border-color: var(--accent-border); color: var(--accent); }
+    .skill-item.primary { background: var(--accent-light); border-color: var(--accent-border); color: var(--accent); }
+
+    /* ── ABOUT ── */
+    #about { background: var(--bg); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .about-body p { color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem; font-size: 0.93rem; }
+    .about-body p strong { color: var(--text); font-weight: 600; }
+    .about-body p a { color: var(--accent); text-decoration: none; }
+    .about-cards { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); }
+    .about-card {
+      background: var(--bg-card); padding: 1.1rem 1.4rem;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 1rem;
+      transition: background 0.15s;
+    }
+    .about-card:last-child { border-bottom: none; }
+    .about-card:hover { background: var(--bg-subtle); }
+    .about-card-icon { font-size: 1rem; width: 32px; text-align: center; flex-shrink: 0; }
+    .about-card-main { font-size: 0.85rem; font-weight: 600; color: var(--text); }
+    .about-card-sub { font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.05rem; }
+
+    /* ── TIMELINE ── */
+    #experience { background: var(--bg); }
+    .timeline { margin-top: 1rem; }
+    .timeline-item {
+      display: grid; grid-template-columns: 160px 1fr;
+      gap: 2rem; padding: 1.8rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .timeline-item:last-child { border-bottom: none; }
+    .tl-date { font-size: 0.75rem; font-weight: 500; color: var(--text-tertiary); padding-top: 0.15rem; letter-spacing: 0.02em; }
+    .tl-role { font-size: 0.97rem; font-weight: 700; margin-bottom: 0.2rem; color: var(--text); }
+    .tl-org { font-size: 0.82rem; color: var(--accent); font-weight: 500; margin-bottom: 0.5rem; }
+    .tl-desc { font-size: 0.83rem; color: var(--text-secondary); line-height: 1.7; }
+    .tl-chips { display: flex; gap: 0.35rem; flex-wrap: wrap; margin-top: 0.6rem; }
+    .tl-chip {
+      background: var(--bg-subtle); border: 1px solid var(--border);
+      color: var(--text-tertiary); padding: 0.15rem 0.5rem;
+      border-radius: 4px; font-size: 0.68rem; font-weight: 500;
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--bg-subtle); border-top: 1px solid var(--border); }
+    .contact-inner { max-width: 540px; }
+    .contact-email-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 1.05rem; font-weight: 500; color: var(--accent);
+      text-decoration: none; margin: 1.5rem 0 2rem;
+      border-bottom: 1px solid var(--accent-border); padding-bottom: 0.15rem;
+      transition: border-color 0.15s;
+    }
+    .contact-email-link:hover { border-color: var(--accent); }
+    .contact-links { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .contact-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.82rem; font-weight: 500; text-decoration: none;
+      color: var(--text-secondary); padding: 0.5rem 1rem;
+      border: 1px solid var(--border); border-radius: 7px;
+      background: var(--bg-card); transition: all 0.15s;
+    }
+    .contact-link:hover { border-color: var(--border-hover); color: var(--text); transform: scale(1.025); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--border);
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 2rem;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 0.5rem;
+    }
+    .footer-copy { font-size: 0.75rem; color: var(--text-tertiary); }
+    .footer-right { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: var(--text-tertiary); }
+    .footer-dot { width: 6px; height: 6px; border-radius: 50%; background: #22C55E; animation: blink 2.5s ease-in-out infinite; }
+
+    /* ── SCROLL REVEAL ── */
+    .fade { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade.in { opacity: 1; transform: translateY(0); }
+    .fade-d1 { transition-delay: 0.08s; }
+    .fade-d2 { transition-delay: 0.16s; }
+    .fade-d3 { transition-delay: 0.24s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-avatar { display: none; }
+      .project-card-inner { grid-template-columns: 1fr; }
+      .project-metrics { flex-direction: row; min-width: 0; width: 100%; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .timeline-item { grid-template-columns: 1fr; gap: 0.25rem; }
+      nav .nav-links, nav .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+    }
+    @media (max-width: 600px) {
+      .container { padding: 0 1.25rem; }
+      section { padding: 5rem 0; }
+      .nav-inner { padding: 0 1.25rem; }
+      .footer-inner { padding: 0 1.25rem; }
+      .project-card { padding: 1.4rem 1.4rem; }
+      .skills-grid { border-radius: 0; border-left: none; border-right: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">Riwas<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="mailto:riwasgthapa@gmail.com" class="nav-cta">Hire me</a>
+    <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-close" id="mobile-close">✕</button>
+  <a href="#projects" onclick="closeMobile()">Projects</a>
+  <a href="#skills" onclick="closeMobile()">Skills</a>
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#experience" onclick="closeMobile()">Experience</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-available">
+        <div class="dot"></div>
+        Open to AI/ML roles — Bangalore
+      </div>
+      <h1 class="hero-title">
+        I build things<br/>
+        <span class="muted">with AI.</span>
+      </h1>
+      <p class="hero-desc">
+        AI Developer focused on LLM-powered applications, RAG systems, and production ML. 
+        I turn complex AI research into tools that work reliably in the real world.
+      </p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-dark">View projects ↓</a>
+        <a href="#contact" class="btn btn-outline">Get in touch</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-val">93<em>.8%</em></div>
+          <div class="hero-stat-desc">Model mAP</div>
+        </div>
+        <div>
+          <div class="hero-stat-val">3<em>+</em></div>
+          <div class="hero-stat-desc">AI projects</div>
+        </div>
+        <div>
+          <div class="hero-stat-val">2026</div>
+          <div class="hero-stat-desc">MCA grad</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-avatar"></div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="label fade"><div class="label-line"></div> Selected projects</div>
+    <h2 class="section-heading fade">Work that ships.</h2>
+    <p class="section-sub fade">Real-world AI systems built end to end — from data collection through deployment.</p>
+
+    <div class="projects-grid">
+
+      <!-- Project 1 -->
+      <div class="project-card fade">
+        <div class="project-card-inner">
+          <div>
+            <div class="project-index">
+              01 &nbsp;·&nbsp; Computer Vision
+              <span class="project-badge">Deployed</span>
+            </div>
+            <h3 class="project-title">Arecanut Ripeness Classification</h3>
+            <p class="project-desc">
+              End-to-end AI pipeline for automated agricultural grading. YOLOv8 handles detection and localization; MobileNetV2 classifies ripeness stage. Dataset collected across multiple real-world plantations — 
+              full preprocessing, augmentation, and mobile-optimized export for offline field use without internet connectivity.
+            </p>
+            <div class="project-stack">
+              <span class="stack-tag">Python</span>
+              <span class="stack-tag">YOLOv8</span>
+              <span class="stack-tag">MobileNetV2</span>
+              <span class="stack-tag">TensorFlow</span>
+              <span class="stack-tag">OpenCV</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/Riwasthapa" class="project-link" target="_blank">↗ GitHub</a>
+            </div>
+          </div>
+          <div class="project-metrics">
+            <div>
+              <div class="metric-val">93<span>.8%</span></div>
+              <div class="metric-label">mAP score</div>
+            </div>
+            <div>
+              <div class="metric-val">2<span>-stage</span></div>
+              <div class="metric-label">detection + classification</div>
+            </div>
+            <div>
+              <div class="metric-val" style="font-size:1rem;">Offline</div>
+              <div class="metric-label">mobile-ready</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="project-card fade fade-d1">
+        <div class="project-card-inner">
+          <div>
+            <div class="project-index">
+              02 &nbsp;·&nbsp; LLM + RAG
+              <span class="project-badge">GenAI</span>
+            </div>
+            <h3 class="project-title">Tax AI Assistant</h3>
+            <p class="project-desc">
+              RAG application that answers Indian tax questions using semantic search over official PDF documents + Gemini-powered generation.
+              Ingestion pipeline: PDF extraction → text chunking → Sentence Transformer embeddings → ChromaDB vector store.
+              Prompt-engineered to cite sources and minimize hallucinations. Agentic orchestration via LangGraph for extensible multi-document workflows.
+            </p>
+            <div class="project-stack">
+              <span class="stack-tag">Python</span>
+              <span class="stack-tag">Gemini API</span>
+              <span class="stack-tag">ChromaDB</span>
+              <span class="stack-tag">LangGraph</span>
+              <span class="stack-tag">Sentence Transformers</span>
+              <span class="stack-tag">PyPDF</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/Riwasthapa" class="project-link" target="_blank">↗ GitHub</a>
+            </div>
+          </div>
+          <div class="project-metrics">
+            <div>
+              <div class="metric-val" style="font-size:1rem;">RAG</div>
+              <div class="metric-label">retrieval-augmented</div>
+            </div>
+            <div>
+              <div class="metric-val" style="font-size:1rem;">Agentic</div>
+              <div class="metric-label">LangGraph workflow</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="project-card fade fade-d2">
+        <div class="project-card-inner">
+          <div>
+            <div class="project-index">03 &nbsp;·&nbsp; Machine Learning</div>
+            <h3 class="project-title">House Price Prediction</h3>
+            <p class="project-desc">
+              Supervised regression pipeline with comprehensive EDA, feature engineering, and multi-model benchmarking using Scikit-learn.
+              Applied cross-validation, hyperparameter tuning, and built statistical visualization reports to communicate findings clearly to non-technical stakeholders.
+            </p>
+            <div class="project-stack">
+              <span class="stack-tag">Python</span>
+              <span class="stack-tag">Scikit-learn</span>
+              <span class="stack-tag">Pandas</span>
+              <span class="stack-tag">Matplotlib</span>
+              <span class="stack-tag">Seaborn</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/Riwasthapa" class="project-link" target="_blank">↗ GitHub</a>
+            </div>
+          </div>
+          <div class="project-metrics">
+            <div>
+              <div class="metric-val" style="font-size:1rem;">EDA</div>
+              <div class="metric-label">full data pipeline</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="label fade"><div class="label-line"></div> Skills</div>
+    <h2 class="section-heading fade">The tools I work with.</h2>
+    <p class="section-sub fade">Focused on the AI/ML stack, with strong Python fundamentals and data engineering capabilities.</p>
+    <div class="skills-grid fade">
+      <div class="skill-group">
+        <div class="skill-group-title">AI / LLMs / RAG</div>
+        <div class="skill-items">
+          <span class="skill-item primary">Gemini API</span>
+          <span class="skill-item primary">LangGraph</span>
+          <span class="skill-item primary">RAG Pipelines</span>
+          <span class="skill-item">ChromaDB</span>
+          <span class="skill-item">FAISS</span>
+          <span class="skill-item">Sentence Transformers</span>
+          <span class="skill-item">Prompt Engineering</span>
+          <span class="skill-item">MCP Server</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">ML / Computer Vision</div>
+        <div class="skill-items">
+          <span class="skill-item primary">YOLOv8</span>
+          <span class="skill-item primary">TensorFlow</span>
+          <span class="skill-item">MobileNetV2</span>
+          <span class="skill-item">PyTorch</span>
+          <span class="skill-item">Scikit-learn</span>
+          <span class="skill-item">OpenCV</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Data & Programming</div>
+        <div class="skill-items">
+          <span class="skill-item primary">Python</span>
+          <span class="skill-item">SQL</span>
+          <span class="skill-item">Pandas</span>
+          <span class="skill-item">NumPy</span>
+          <span class="skill-item">Matplotlib</span>
+          <span class="skill-item">Seaborn</span>
+          <span class="skill-item">R</span>
+          <span class="skill-item">C++ (basic)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="label fade"><div class="label-line"></div> About</div>
+    <div class="about-grid">
+      <div class="about-body fade">
+        <h2 class="section-heading" style="margin-bottom:1.4rem;">Science background.<br/>AI focus.</h2>
+        <p>I'm <strong>Riwas Thapa</strong> — a final-year MCA student at Reva University, Bangalore, currently interning as a Mobile App Developer at <a href="#">Dalm Solutions</a>.</p>
+        <p>My background is unusual: I started with a <strong>B.Sc. in Chemistry</strong> before moving into CS. That foundation shapes how I think about data and models — methodically, skeptically, always asking what a system is actually measuring and why.</p>
+        <p>I'm building toward <strong>AI/ML Engineering roles</strong> — specifically LLM applications, RAG systems, and production ML. I care about systems that work reliably, not just in demos.</p>
+      </div>
+      <div class="about-cards fade fade-d1">
+        <div class="about-card">
+          <div class="about-card-icon">🎓</div>
+          <div>
+            <div class="about-card-main">MCA — Reva University</div>
+            <div class="about-card-sub">CGPA 7.15 · Graduating 2026</div>
+          </div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">💼</div>
+          <div>
+            <div class="about-card-main">Mobile App Developer Intern</div>
+            <div class="about-card-sub">Dalm Solutions Pvt. Ltd.</div>
+          </div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">📍</div>
+          <div>
+            <div class="about-card-main">Bangalore, India</div>
+            <div class="about-card-sub">Open to hybrid & remote</div>
+          </div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">🎯</div>
+          <div>
+            <div class="about-card-main">Target: AI/ML · LLM Engineering</div>
+            <div class="about-card-sub">Fresher level · actively looking</div>
+          </div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">🔬</div>
+          <div>
+            <div class="about-card-main">B.Sc. Chemistry</div>
+            <div class="about-card-sub">Darjeeling Govt. College · 2021–2024</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="label fade"><div class="label-line"></div> Experience & Education</div>
+    <h2 class="section-heading fade">Background.</h2>
+    <div class="timeline fade">
+      <div class="timeline-item">
+        <div class="tl-date">2024 — present</div>
+        <div>
+          <div class="tl-role">Mobile App Developer Intern</div>
+          <div class="tl-org">Dalm Solutions Pvt. Ltd. · Bangalore</div>
+          <div class="tl-desc">Developing mobile application features in a production environment, collaborating with engineering teams, and applying software engineering practices to shipping code.</div>
+          <div class="tl-chips">
+            <span class="tl-chip">Internship</span>
+            <span class="tl-chip">Mobile Dev</span>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-date">2024 — 2026</div>
+        <div>
+          <div class="tl-role">Master of Computer Application</div>
+          <div class="tl-org">Reva University, Bangalore · CGPA 7.15</div>
+          <div class="tl-desc">Advanced coursework in Machine Learning, Data Analytics, Database Management, and Software Engineering. Built AI/ML projects as practical applications alongside coursework.</div>
+          <div class="tl-chips">
+            <span class="tl-chip">ML</span><span class="tl-chip">Data Analytics</span><span class="tl-chip">Algorithms</span>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-date">Certifications</div>
+        <div>
+          <div class="tl-role">EDA with Pandas & Python 3.x</div>
+          <div class="tl-org">Data cleaning, transformation, statistical pattern analysis, visualization</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-date"></div>
+        <div>
+          <div class="tl-role">Data Analytics with R</div>
+          <div class="tl-org">Statistical analysis and visualization using R and tidyverse</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-date">2021 — 2024</div>
+        <div>
+          <div class="tl-role">B.Sc. in Chemistry</div>
+          <div class="tl-org">Darjeeling Government College · CGPA 7.1</div>
+          <div class="tl-desc">Analytical and research foundation. Led the Writer's Club — built communication skills that now inform how I document and present AI systems.</div>
+          <div class="tl-chips">
+            <span class="tl-chip">Analytical Methods</span><span class="tl-chip">Research</span><span class="tl-chip">Writer's Club Lead</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="label fade"><div class="label-line"></div> Contact</div>
+      <h2 class="section-heading fade">Let's work together.</h2>
+      <p class="section-sub fade" style="margin-bottom:0;">I'm actively looking for AI Developer, LLM Engineer, and Applied ML roles — fresher level, Bangalore or remote.</p>
+      <a href="mailto:riwasgthapa@gmail.com" class="contact-email-link fade">riwasgthapa@gmail.com ↗</a>
+      <div class="contact-links fade">
+        <a href="https://github.com/Riwasthapa" class="contact-link" target="_blank">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          GitHub
+        </a>
+        <a href="https://linkedin.com/in/riwas-thapa-a89678221" class="contact-link" target="_blank">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="tel:+917063669261" class="contact-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .92h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          +91 7063669261
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-copy">© 2026 Riwas Thapa</div>
+    <div class="footer-right">
+      <div class="footer-dot"></div>
+      Available for roles
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── SCROLL REVEAL ── */
+const fades = document.querySelectorAll('.fade');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: 0.08 });
+fades.forEach(el => io.observe(el));
+
+/* ── MOBILE NAV ── */
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('mobile-menu').classList.add('open');
+});
+document.getElementById('mobile-close').addEventListener('click', closeMobile);
+function closeMobile() { document.getElementById('mobile-menu').classList.remove('open'); }
+
+/* ── NAV ACTIVE ── */
+const allSections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  allSections.forEach(s => { if (window.scrollY >= s.offsetTop - 90) cur = s.id; });
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    const active = a.getAttribute('href') === '#' + cur;
+    a.style.color = active ? 'var(--text)' : '';
+    a.style.background = active ? 'var(--bg-subtle)' : '';
+  });
+}, { passive: true });
+</script>
+</body>
+</html>
